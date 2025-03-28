@@ -1,0 +1,29 @@
+{
+  "name": "tools",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/dockerode": "^3.3.35",
+    "@types/fs-extra": "^11.0.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "dockerode": "^4.0.4",
+    "fs-extra": "^11.3.0",
+    "inquirer": "^12.4.3"
+  },
+  "bin": {
+    "pgdocker": "./dist/index.js",
+    "jsonpp": "./dist/jsonpp.js"
+  },
+  "scripts": {
+    "build": "bun build index.ts jsonpp.ts --outdir ./dist --target node",
+    "start": "bun run index.ts",
+    "jsonpp": "bun run jsonpp.ts"
+  }
+}
