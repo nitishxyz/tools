@@ -166,23 +166,24 @@ async function createInstance(
 
     // Create and start the container
     const container = await docker.createContainer({
-      Image: imageName,
-      name: `pgdocker-${name}`,
-      ExposedPorts: {
-        "5432/tcp": {},
-      },
-      HostConfig: {
-        PortBindings: {
-          "5432/tcp": [{ HostPort: `${port}` }],
-        },
-        Binds: [`${instanceDataPath}:/var/lib/postgresql/data`],
-      },
-      Env: [
-        "POSTGRES_PASSWORD=postgres",
-        "POSTGRES_USER=postgres",
-        "POSTGRES_DB=postgres",
-      ],
-    });
+     Image: imageName,
+     name: `pgdocker-${name}`,
+     ExposedPorts: {
+       "5432/tcp": {},
+     },
+     HostConfig: {
+       PortBindings: {
+         "5432/tcp": [{ HostPort: `${port}` }],
+       },
+        Binds: [`${instanceDataPath}:/var/lib/postgresql/data/pgdata`],
+     },
+     Env: [
+       "POSTGRES_PASSWORD=postgres",
+       "POSTGRES_USER=postgres",
+       "POSTGRES_DB=postgres",
+        "PGDATA=/var/lib/postgresql/data/pgdata",
+     ],
+   });
 
     await container.start();
 
